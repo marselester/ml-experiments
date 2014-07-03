@@ -1,3 +1,6 @@
+from __future__ import division
+
+
 def split_feature_from_target(dataset):
     """Splits dataset to feature and target matrices.
 
@@ -15,7 +18,7 @@ def split_to_sets(dataset, cv_rate=20, test_rate=20):
     test sets (20%).
     """
     cols_num, _ = dataset.shape
-    num_in_percent = cols_num / 100.
+    num_in_percent = cols_num / 100
     test_num = test_rate * num_in_percent
     cv_num = cv_rate * num_in_percent
 

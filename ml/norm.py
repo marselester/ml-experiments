@@ -14,6 +14,7 @@ def column_std(X):
 
 
 def feature_normalize(X, mean, std):
+    """Scales features and set them to zero mean."""
     return (X - mean) / std
 
 

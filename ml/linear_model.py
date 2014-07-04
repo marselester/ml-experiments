@@ -6,7 +6,7 @@ import numpy as np
 def hypothesis(X, theta):
     """Predicts target variable.
 
-    :param X: Row vector which contains features.
+    :param X: Matrix of features.
     :param theta: Column vector that contains parameters of a model.
 
     """
@@ -30,8 +30,15 @@ def derivative_of_cost(X, y, theta):
     return (X.transpose() * (h - y)) / examples_count
 
 
-def predict(X):
-    """We must first normalize x using the mean and standard deviation
-    that we had previously computed from the training set.
+def batch_gradient_descent(X, y, theta, alpha=0.01):
+    """Minimizes a cost function using batch gradient descent.
+
+    ``alpha`` is gradient descent step.
 
     """
+    J = []
+    for _ in xrange(1500):
+        J.append(cost(X, y, theta))
+        # Simultaneously update all thetas.
+        theta -= alpha * derivative_of_cost(X, y, theta)
+    return theta, J

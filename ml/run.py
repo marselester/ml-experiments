@@ -3,9 +3,12 @@ import numpy as np
 from .split import split_to_sets, split_feature_from_target
 from .norm import (column_mean, column_std, feature_normalize,
                    add_column_of_ones_to_matrix)
+from .linear_model import batch_gradient_descent
 
 csvfile_path = 'data/concrete.csv'
-dataset = np.genfromtxt(csvfile_path, delimiter=',')
+dataset = np.matrix(
+    np.genfromtxt(csvfile_path, delimiter=',', skip_header=1)
+)
 
 # Split dataset.
 train_set, cv_set, test_set = split_to_sets(dataset)
@@ -24,3 +27,7 @@ X_norm_test = feature_normalize(X_test, mean, std)
 X_norm_train = add_column_of_ones_to_matrix(X_norm_train)
 X_norm_cv = add_column_of_ones_to_matrix(X_norm_cv)
 X_norm_test = add_column_of_ones_to_matrix(X_norm_test)
+
+_, features_count = X_norm_train.shape
+initial_theta = np.zeros((features_count, 1))
+theta, J_vector = batch_gradient_descent(X_norm_train, y_train, initial_theta)

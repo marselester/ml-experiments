@@ -1,6 +1,7 @@
 import numpy as np
 
-from ml.norm import column_mean, column_std, feature_normalize
+from ml.norm import (column_mean, column_std, feature_normalize,
+                     add_column_of_ones_to_matrix)
 from .utils import MatrixTestCase
 
 
@@ -114,3 +115,17 @@ class FeatureNormalizeTest(MatrixTestCase):
              0.92938
         ''')
         self.assertMatrixAlmostEqual(X_norm, expected_X_norm)
+
+
+class AddColumnOfOnesToMatrixTest(MatrixTestCase):
+    def test_3x3_matrix(self):
+        X = np.matrix('''
+            2  3  4;
+            2  3  4
+        ''')
+        X_with_ones = add_column_of_ones_to_matrix(X)
+        expected_X_with_ones = np.matrix('''
+            1  2  3  4;
+            1  2  3  4
+        ''')
+        self.assertMatrixEqual(X_with_ones, expected_X_with_ones)

@@ -15,3 +15,10 @@ def column_std(X):
 
 def feature_normalize(X, mean, std):
     return (X - mean) / std
+
+
+def add_column_of_ones_to_matrix(X):
+    """Adds column vector of ``1`` to matrix for convenience of notation."""
+    rows_num, _ = X.shape
+    column_of_ones = np.ones((rows_num, 1))
+    return np.hstack((column_of_ones, X))
